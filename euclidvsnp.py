@@ -11,7 +11,7 @@ def qvl(a,b):
 def aseq(a,b,label):
   if isinstance(a, euclid.Point2) and isinstance(b, npeuclid.Vec2):
     if not (qvl(a.x,b.x) and qvl(a.y,b.y)):
-      print 'Error (: '+label+'):', a,'vs',b
+      print 'Error ('+label+'):', a,'vs',b
     return
   elif isinstance(a, euclid.Matrix3) and isinstance(b, npeuclid.Affine2):
     alist = [a[i] for i in [0,3,6,1,4,7,2,5,8]]

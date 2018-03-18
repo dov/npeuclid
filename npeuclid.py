@@ -26,39 +26,27 @@ class Vec2(np.ndarray):
         return super(Vec2,cls).__new__(cls, shape=(2,), buffer=obj,dtype=np.float)
   
     def __repr__(self):
-        return 'Vec2({0},{1})'.format(self[0],self[1])
+        return 'Vec2({0:.5f},{1:.5f})'.format(self[0],self[1])
   
     def __str__(self):
         return self.__repr__()
   
-    def __mul__(self, other):
-        if isinstance(other,int) or isinstance(other,float):
-            return Vec2(self[0]*other,self[1]*other)
-        else:
-            raise TypeError('No support for mul operator for other operand of type ' + str(type(other)))
+    def magnitude_squared(self):
+        return (self**2).sum()
   
-    def __div__(self, other):
-        if isinstance(other,int) or isinstance(other,float):
-            return Vec2(self[0]/other,self[1]/other)
-        else:
-            raise TypeError('No support for div operator for other operand of type ' + str(type(other)))
+    def magnitude(self):
+        return math.sqrt((self**2).sum())
+  
+    def normalize(self):
+        d = self.magnitude()
+        return self/d
   
     def reflect(self, normal):
         # assume normal is normalized
         assert isinstance(normal, Vec2)
         d = 2 * (self.x * normal.x + self.y * normal.y)
         return Vec2(self.x - d * normal.x,
-                   self.y - d * normal.y)
-  
-    def magnitude_squared(self):
-        return self[0]**2+self[1]**2
-  
-    def magnitude(self):
-        return math.sqrt(self[0]**2+self[1]**2)
-  
-    def normalize(self):
-        d = self.magnitude()
-        return Vec2(self[0]/d,self[1]/d)
+                    self.y - d * normal.y)
   
     def angle(self, other):
         """Return the angle to the vector other w.r.t. to the origin"""
@@ -85,7 +73,7 @@ class Vec2Array(np.ndarray):
   
     def __str__(self):
         return ('Vec2Array('
-                + ','.join('[{0},{1}]'.format(self[i,0],self[i,1])
+                + ','.join('[{0:.5f},{1:.5f}]'.format(self[i,0],self[i,1])
                            for i in range(self.shape[0]))
                 + ')'
                 )
@@ -148,6 +136,7 @@ class Affine2(np.ndarray):
                                           [0,0,1]]))
   
     def tolist(self):
+        # Return in the order of new_affine
         return [self[i] for i in [(0,0),(0,1),(1,0),(1,1),(0,2),(1,2)]]
   
     def scale(self, sx, sy):
@@ -203,5 +192,6 @@ if __name__=='__main__':
     print t*q
     pp = Vec2Array([[5,6],[7,8],[3,4]])
     print (t*pp)[0]
-
+    print (t*q).normalize()*(t*q).magnitude()
+    print (t*q)*5*0.20
 
