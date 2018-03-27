@@ -96,6 +96,15 @@ class Vec2Array(np.ndarray):
             p = np.ndarray.__getitem__(self,i)
         return p
 
+    # Use getattr to support vec.x and vec.y
+    def __getattr__(self, attr):
+        if attr=='x':
+            return self.toarray()[:,0]
+        elif attr=='y':
+            return self.toarray()[:,1]
+        else:
+            raise ValueError('No such attribute '+attr)
+
     def toarray(self):
         '''"cast" self to nd array'''
         return np.ndarray(shape=self.shape,
@@ -293,6 +302,17 @@ class Vec3Array(np.ndarray):
             p = np.ndarray.__getitem__(self,i)
         return p
     
+    # Use getattr to support vec.x and vec.y
+    def __getattr__(self, attr):
+        if attr=='x':
+            return self.toarray()[:,0]
+        elif attr=='y':
+            return self.toarray()[:,1]
+        elif attr=='z':
+            return self.toarray()[:,2]
+        else:
+            raise ValueError('No such attribute '+attr)
+
     def toarray(self):
         '''"cast" self to nd array'''
         return np.ndarray(shape=self.shape,
@@ -485,11 +505,13 @@ class Affine3(np.ndarray):
 
 if __name__=='__main__':
     # Some testing
-    p = Vec2(2,3)
-    q = Vec2(5,6).normalize()
-    print p.reflect(q)
-    pp = Vec2Array([[2,3],[4,5]])
-    print pp.reflect(q)
+#    p = Vec2(2,3)
+#    q = Vec2(5,6).normalize()
+#    print p.reflect(q)
+    pp = Vec2Array([[2,3],[4,5],[6,7]])
+#    print pp.reflect(q)
+    print pp.x
+    
     
 #    print p.project(q)
 #    p = Vec3(2,3,4)
