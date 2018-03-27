@@ -7,7 +7,7 @@ import math
 eps = 1e-10
 
 def qvl(a,b):
-  return abs(a-b) < eps
+  return abs((a-b).magnitude() < eps)
 
 def aseq(a,b,label):
   if isinstance(a, euclid.Point2) and isinstance(b, npeuclid.Vec2):
