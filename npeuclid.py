@@ -244,6 +244,12 @@ class Vec3(np.ndarray):
         d = 2 * self.dot(normal)
         return self - d * normal
   
+    def cross(self, other):
+        assert isinstance(other, Vec3)
+        return Vec3(self[1] * other[2] - self[2] * other[1],
+                    -self[0] * other[2] + self[2] * other[0],
+                    self[0] * other[1] - self[1] * other[0])
+        
     def rotate_around(self, axis, theta):
         """Return the vector rotated around axis through angle theta. Right hand rule applies"""
 
@@ -331,6 +337,19 @@ class Vec3Array(np.ndarray):
         assert isinstance(normal, Vec2)
         d = 2*self.toarray().dot(normal)
         return self - (d * normal.reshape(3,1)).transpose()
+
+    def cross(self, other):
+        '''Do cross product either with a Vec3'''
+        if isinstance(other, Vec3):
+            return Vec3Array((self[:,1] * other[2] - self[:,2] * other[1],
+                             -self[:,0] * other[2] + self[:,2] * other[0],
+                             self[:,0] * other[1] - self[:,1] * other[0])).T
+        elif isinstance(other, Vec3Array):
+            return Vec3Array((self[:,1] * other[:,2] - self[:,2] * other[:,1],
+                             -self[:,0] * other[:,2] + self[:,2] * other[:,0],
+                             self[:,0] * other[:,1] - self[:,1] * other[:,0])).T
+        else:
+            raise TypeError('Expected Vec3 or Vec3Array!')
 
 class Affine3(np.ndarray):
     def __new__(cls, input_array=None):
@@ -490,6 +509,7 @@ class Affine3(np.ndarray):
     
     @classmethod
     def new_perspective(cls, fov_y, aspect, near, far):
+        '''Create a perspective matrix. This class really shouldn't be called Affine3D anymore...'''
         # from the gluPerspective man page
         f = 1 / math.tan(fov_y / 2)
         self = cls()
