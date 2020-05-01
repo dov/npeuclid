@@ -353,6 +353,13 @@ class Affine3(np.ndarray):
     def translate(self, sx, sy, sz):
         return self * Affine3.new_translate(x, y, z)
 
+    def pre_translate(self, tx, ty, tz):
+        tmat = self.copy()
+        tmat[0,3] += tx
+        tmat[1,3] += ty
+        tmat[2,3] += tz
+        return tmat
+
     def rotatex(self, angle):
         return self * Affine3.new_rotatex(angle)
 
@@ -380,7 +387,6 @@ class Affine3(np.ndarray):
         self[1,2] = -s
         self[2,1] = s
         return self
-    new_rotatex = classmethod(new_rotatex)
 
     @classmethod 
     def new_rotatey(cls, angle):
@@ -499,7 +505,7 @@ class Affine3(np.ndarray):
         elif isinstance(other, Affine3):
             return super(self.__class__, self).dot(other)
         else:
-            raise TypeError('Unsupported Affine2 multiplication type: ' + str(type(other)))
+            raise TypeError('Unsupported Affine3 multiplication type: ' + str(type(other)))
   
     def __str__(self):
         return 'Affine3('+super(Affine3, self).__str__().replace('\n','\n        ')
