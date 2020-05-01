@@ -166,6 +166,12 @@ class Affine2(np.ndarray):
                                           [yx,yy,ty],
                                           [0,0,1]]))
   
+    def linear(self):
+        '''Return a linear matrix'''
+        ret = self.copy()
+        ret[0:2,2]=0
+        return ret
+
     def tolist(self):
         # Return in the order of new_affine
         return [self[i] for i in [(0,0),(0,1),(1,0),(1,1),(0,2),(1,2)]]
@@ -353,6 +359,13 @@ class Affine3(np.ndarray):
     def translate(self, sx, sy, sz):
         return self * Affine3.new_translate(x, y, z)
 
+    def linear(self):
+        '''Return the linear (upper 3x3) matrix'''
+        '''Return a linear matrix'''
+        ret = self.copy()
+        ret[0:3,2]=0
+        return ret
+
     def pre_translate(self, tx, ty, tz):
         tmat = self.copy()
         tmat[0,3] += tx
@@ -408,6 +421,7 @@ class Affine3(np.ndarray):
         self[1,0] = s
         return self
 
+    @classmethod
     def new_rotate_axis(cls, angle, axis):
         assert(isinstance(axis, Vector3))
         vector = axis.normalize()
@@ -431,7 +445,6 @@ class Affine3(np.ndarray):
         self[2,1] = y * z * c1 + x * s
         self[2,2] = z * z * c1 + c
         return self
-    new_rotate_axis = classmethod(new_rotate_axis)
 
     @classmethod
     def new_rotate_euler(cls, heading, attitude, bank):
@@ -489,7 +502,6 @@ class Affine3(np.ndarray):
         self[3,2] = -1
         self[3,3] = 0
         return self
-    new_perspective = classmethod(new_perspective)
 
     def __mul__(self, other):
         if isinstance(other, Vec3) or isinstance(other, list) or isinstance(other, tuple):
@@ -515,9 +527,9 @@ if __name__=='__main__':
 #    p = Vec2(2,3)
 #    q = Vec2(5,6).normalize()
 #    print(p.reflect(q))
-    pp = Vec2Array([[2,3],[4,5],[6,7]])
+#    pp = Vec2Array([[2,3],[4,5],[6,7]])
 #    print(pp.reflect(q))
-    print(pp.x)
+#    print(pp.x)
     
     
 #    print(p.project(q))
@@ -537,3 +549,6 @@ if __name__=='__main__':
 #    print((t*q).normalize()*(t*q).magnitude())
 #    print((t*q)*5*0.20)
 
+     p = Vec2(2,3)
+     t = Affine2.new_translate(10,10)
+     print(t*p, t.linear()*p)
