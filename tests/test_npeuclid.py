@@ -35,6 +35,13 @@ class TestNPEuclid(unittest.TestCase):
         self.assertAlmostEqual(q[0], -3)
         self.assertAlmostEqual(q[1], 2)
 
+    def test_aff3_linear(self):
+        p = Vec2(2,3)
+        t = Affine2.new_translate(10,20)
+        q = t.linear()*p
+        self.assertAlmostEqual(q[0], 2)
+        self.assertAlmostEqual(q[1], 3)
+
     def test_aff3_translate(self):
         p = Vec3(2,3,4)
         t = Affine3.new_translate(10,20,30)
@@ -65,6 +72,14 @@ class TestNPEuclid(unittest.TestCase):
         q = t.rotatez(np.pi/2)*p
         self.assertAlmostEqual(q[0], -3)
         self.assertAlmostEqual(q[1], 2)
+        self.assertAlmostEqual(q[2], 4)
+
+    def test_aff3_linear(self):
+        p = Vec3(2,3,4)
+        t = Affine3.new_translate(10,20,30)
+        q = t.linear()*p
+        self.assertAlmostEqual(q[0], 2)
+        self.assertAlmostEqual(q[1], 3)
         self.assertAlmostEqual(q[2], 4)
 
 if __name__ == '__main__':

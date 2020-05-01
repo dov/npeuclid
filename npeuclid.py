@@ -361,9 +361,8 @@ class Affine3(np.ndarray):
 
     def linear(self):
         '''Return the linear (upper 3x3) matrix'''
-        '''Return a linear matrix'''
         ret = self.copy()
-        ret[0:3,2]=0
+        ret[0:3,3]=0
         return ret
 
     def pre_translate(self, tx, ty, tz):
