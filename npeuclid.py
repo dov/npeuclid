@@ -21,6 +21,7 @@
 # along with this library; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from __future__ import print_function
 import numpy as np
 import math 
 
@@ -507,26 +508,26 @@ if __name__=='__main__':
     # Some testing
 #    p = Vec2(2,3)
 #    q = Vec2(5,6).normalize()
-#    print p.reflect(q)
+#    print(p.reflect(q))
     pp = Vec2Array([[2,3],[4,5],[6,7]])
-#    print pp.reflect(q)
-    print pp.x
+#    print(pp.reflect(q))
+    print(pp.x)
     
     
-#    print p.project(q)
+#    print(p.project(q))
 #    p = Vec3(2,3,4)
 #    q = Vec3(0,0,1)
-#    print p.rotate_around(q, math.pi)
+#    print(p.rotate_around(q, math.pi))
 
 #    angle = math.radians(33)
 #    t = Affine2.new_translate(p.x,p.y).rotate(angle).translate(-p.x,-p.y)
-#    print t*q
+#    print(t*q)
 #    t = Affine2.new_rotate_around(angle, p.x, p.y)
-#    print t*q
+#    print(t*q)
 #    t = Affine2().rotate_around(angle, p.x, p.y)
-#    print t*q
+#    print(t*q)
 #    pp = Vec2Array([[5,6],[7,8],[3,4]])
-#    print (t*pp)[0]
-#    print (t*q).normalize()*(t*q).magnitude()
-#    print (t*q)*5*0.20
+#    print((t*pp)[0])
+#    print((t*q).normalize()*(t*q).magnitude())
+#    print((t*q)*5*0.20)
 
