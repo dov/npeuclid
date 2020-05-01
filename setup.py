@@ -1,20 +1,22 @@
 #!/usr/bin/env python
 
-'''
-'''
-
-__docformat__ = 'restructuredtext'
-__version__ = '$Id$'
-
+import setuptools
 from distutils.core import setup
 
 setup(name='npeuclid',
-      version='0.01',
+      py_modules=['npeuclid'],
+      version='0.1',
+      license='lgpl-2.1',
       description='Fast 2D and 3D vector geometry module',
       author='Dov Grobgeld',
       author_email='dov.grobgeld@gmail.com',
       url='http://github.com/dov/npeuclid',
-      py_modules=['npeuclid'],
+      download_url = 'https://github.com/dov/npeuclid/archive/v0.1.tar.gz',
+      keywords = ['math','geometry'],
+      install_requires=[            
+          'numpy',
+      ],
+      setup_requires=['wheel'],
       classifiers = [
           "Programming Language :: Python",
           "Programming Language :: Python :: 3",

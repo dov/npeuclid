@@ -1,2 +1,6 @@
 *~
 *.pyc
+build/
+dist/
+/MANIFEST
+npeuclid.egg-info

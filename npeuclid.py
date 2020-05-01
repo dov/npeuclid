@@ -522,33 +522,3 @@ class Affine3(np.ndarray):
     def __str__(self):
         return 'Affine3('+super(Affine3, self).__str__().replace('\n','\n        ')
 
-if __name__=='__main__':
-    # Some testing
-#    p = Vec2(2,3)
-#    q = Vec2(5,6).normalize()
-#    print(p.reflect(q))
-#    pp = Vec2Array([[2,3],[4,5],[6,7]])
-#    print(pp.reflect(q))
-#    print(pp.x)
-    
-    
-#    print(p.project(q))
-#    p = Vec3(2,3,4)
-#    q = Vec3(0,0,1)
-#    print(p.rotate_around(q, math.pi))
-
-#    angle = math.radians(33)
-#    t = Affine2.new_translate(p.x,p.y).rotate(angle).translate(-p.x,-p.y)
-#    print(t*q)
-#    t = Affine2.new_rotate_around(angle, p.x, p.y)
-#    print(t*q)
-#    t = Affine2().rotate_around(angle, p.x, p.y)
-#    print(t*q)
-#    pp = Vec2Array([[5,6],[7,8],[3,4]])
-#    print((t*pp)[0])
-#    print((t*q).normalize()*(t*q).magnitude())
-#    print((t*q)*5*0.20)
-
-     p = Vec2(2,3)
-     t = Affine2.new_translate(10,10)
-     print(t*p, t.linear()*p)

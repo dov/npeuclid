@@ -1,28 +1,28 @@
 # Compare euclid vs npeuclid and do testing
 import euclid
-import npeuclid ; reload(npeuclid)
+import npeuclid 
 import numpy as np
 import math
 
 eps = 1e-10
 
 def qvl(a,b):
-  return abs((a-b).magnitude() < eps)
+  return abs(a-b) < eps
 
 def aseq(a,b,label):
   if isinstance(a, euclid.Point2) and isinstance(b, npeuclid.Vec2):
     if not (qvl(a.x,b.x) and qvl(a.y,b.y)):
-      print 'Error ('+label+'):', a,'vs',b
+      print('Error ('+label+'):', a,'vs',b)
     return
   elif isinstance(a, euclid.Point3) and isinstance(b, npeuclid.Vec3):
     if not (qvl(a.x,b.x) and qvl(a.y,b.y) and qvl(a.z,b.z)):
-      print 'Error ('+label+'):', a,'vs',b
+      print('Error ('+label+'):', a,'vs',b)
     return
   elif isinstance(a, euclid.Matrix3) and isinstance(b, npeuclid.Affine2):
     alist = [a[i] for i in [0,3,6,1,4,7,2,5,8]]
     blist = [b[i//3,i%3] for i in range(9)]
     if not all(qvl(v,w) for v,w in zip(alist,blist)):
-      print 'Error ('+label+'):', alist,'vs',blist
+      print('Error ('+label+'):', alist,'vs',blist)
     return
   elif isinstance(a, euclid.Matrix4) and isinstance(b, npeuclid.Affine3):
     alist = [a[i] for i in [0,4,8,12,
@@ -32,9 +32,9 @@ def aseq(a,b,label):
                             ]]
     blist = [b[i//4,i%4] for i in range(16)]
     if not all(qvl(v,w) for v,w in zip(alist,blist)):
-      print 'Error ('+label+'):', alist,'vs',blist
+      print('Error ('+label+'):', alist,'vs',blist)
     return
-  print type(a), 'vs', type(b)
+  print(type(a), 'vs', type(b))
   raise Exception('Unsupported types!')
 
 ev1 = euclid.Point2(1,2)
@@ -97,4 +97,4 @@ nv3 = nt2*nv1
 aseq(ev3,nv3,'Rotate3 point')
 
 
-print 'ok!'
+print('ok!')
