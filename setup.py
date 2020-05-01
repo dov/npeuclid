@@ -8,7 +8,7 @@ from distutils.core import setup
 
 setup(name='npeuclid',
       py_modules=['npeuclid'],
-      version='0.1.1',
+      version='0.1.2',
       license='lgpl-2.1',
       description='Fast 2D and 3D vector geometry module',
       long_description=long_description,
@@ -16,7 +16,7 @@ setup(name='npeuclid',
       author='Dov Grobgeld',
       author_email='dov.grobgeld@gmail.com',
       url='http://github.com/dov/npeuclid',
-      download_url = 'https://github.com/dov/npeuclid/archive/v0.1.1.tar.gz',
+      download_url = 'https://github.com/dov/npeuclid/archive/v0.1.2.tar.gz',
       keywords = ['math','geometry'],
       install_requires=[            
           'numpy',

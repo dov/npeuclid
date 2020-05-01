@@ -32,7 +32,7 @@ Here are the types defined by npeuclid:
 
 # Usage
 
-## 3D
+## 2D
 
     p = Vec2(2,3)
     q = Vec2(5,6)
@@ -49,3 +49,11 @@ Here are the types defined by npeuclid:
     # Use of Vec2Array is using numpy and is *much* faster than looping.
     pp = Vec2Array([[5,6],[7,8],[3,4]])
     print (t*pp)[0]
+
+## 3D
+
+    p = Vec2(2,3,4)
+    q = Vec2(5,6,7)
+    angle = math.radians(33)
+    t = Affine2.new_translate(p.x,p.y).rotatex(angle).translate(-p.x,-p.y)
+    print(t*q)
