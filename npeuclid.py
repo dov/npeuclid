@@ -375,10 +375,10 @@ class Affine3(np.ndarray):
         return cls.__new__(cls, obj)
   
     def scale(self, sx, sy, sz):
-        return self * Affine3.new_scale(x, y, z)
+        return self * Affine3.new_scale(sx, sy, sz)
 
-    def translate(self, sx, sy, sz):
-        return self * Affine3.new_translate(x, y, z)
+    def translate(self, tx, ty, tz):
+        return self * Affine3.new_translate(tx, ty, tz)
 
     def linear(self):
         '''Return the linear (upper 3x3) matrix'''
