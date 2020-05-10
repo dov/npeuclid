@@ -68,8 +68,7 @@ class Vec2(np.ndarray):
             return self[0]
         elif attr=='y':
             return self[1]
-        else:
-            raise ValueError('No such attribute '+attr)
+        raise AttributeError('No such attribute: ' + attr)
 
 class Vec2Array(np.ndarray):
     def __new__(cls, list=None, matrix=None):
@@ -103,8 +102,7 @@ class Vec2Array(np.ndarray):
             return self.toarray()[:,0]
         elif attr=='y':
             return self.toarray()[:,1]
-        else:
-            raise ValueError('No such attribute '+attr)
+        raise AttributeError('No such attribute: ' + attr)
 
     def toarray(self):
         '''"cast" self to nd array'''
@@ -176,6 +174,12 @@ class Affine2(np.ndarray):
         # Return in the order of new_affine
         return [self[i] for i in [(0,0),(0,1),(1,0),(1,1),(0,2),(1,2)]]
   
+    def toarray(self):
+        '''"cast" self to nd array'''
+        return np.ndarray(shape=self.shape,
+                          buffer=self.data,
+                          dtype=self.dtype)
+
     def scale(self, sx, sy):
         return self * Affine2.new_scale(sx,sy)
   
@@ -228,6 +232,16 @@ class Vec3(np.ndarray):
     def __str__(self):
         return self.__repr__()
   
+    # Use getattr to support vec.x, vec.y, and vec.z
+    def __getattr__(self, attr):
+        if attr=='x':
+            return self[0]
+        elif attr=='y':
+            return self[1]
+        elif attr=='z':
+            return self[2]
+        raise AttributeError('No such attribute: ' + attr)
+
     def magnitude_squared(self):
         return (self**2).sum()
   
@@ -277,17 +291,6 @@ class Vec3(np.ndarray):
         n = other.normalize()
         return self.dot(n)*n
 
-    # Use getattr to support vec.x, vec.y, and vec.z
-    def __getattr__(self, attr):
-        if attr=='x':
-            return self[0]
-        elif attr=='y':
-            return self[1]
-        elif attr=='z':
-            return self[2]
-        else:
-            raise ValueError('No such attribute '+attr)
-
 class Vec3Array(np.ndarray):
     def __new__(cls, list=None, matrix=None):
         if list is not None:
@@ -323,8 +326,7 @@ class Vec3Array(np.ndarray):
             return self.toarray()[:,1]
         elif attr=='z':
             return self.toarray()[:,2]
-        else:
-            raise ValueError('No such attribute '+attr)
+        raise AttributeError('No such attribute: ' + attr)
 
     def toarray(self):
         '''"cast" self to nd array'''
