@@ -21,7 +21,7 @@ Here are the types defined by npeuclid:
 ## 2D 
 
 - `Vec2` - Holds a 2D vector (or point).
-- `Vec2Array` - Holds a list of points. All operations that can be done on a signal should be available on a Vec2Array as well. In particular, an `Affine2` operation may be applied on a `Vec2Array` which will transform all the points. 
+- `Vec2Array` - Holds a list of points. All operations that can be done on a single `Vec2` should be available on a Vec2Array as well. In particular, an `Affine2` operation may be applied on a `Vec2Array` which will transform all the points. 
 - `Affine2` - An 2D affine transformation.
 
 ## 3D
