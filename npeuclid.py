@@ -28,8 +28,8 @@ import math
 class Vec2(np.ndarray):
     '''An (x,y) pair'''
     def __new__(cls, x=0,y=0):
-        obj = np.array([x,y],dtype=np.float)
-        return super(Vec2,cls).__new__(cls, shape=(2,), buffer=obj,dtype=np.float)
+        obj = np.array([x,y],dtype=float)
+        return super(Vec2,cls).__new__(cls, shape=(2,), buffer=obj,dtype=float)
   
     def __repr__(self):
         return 'Vec2({0:.5f},{1:.5f})'.format(self[0],self[1])
@@ -73,7 +73,7 @@ class Vec2(np.ndarray):
 class Vec2Array(np.ndarray):
     def __new__(cls, list=None, matrix=None):
         if list is not None:
-            obj = np.matrix(np.array(list)).astype(np.float)
+            obj = np.array(list).astype(float)
         else:
             obj = matrix
         self = super(Vec2Array,cls).__new__(cls, shape=obj.shape, buffer=matrix,dtype=obj.dtype)
@@ -223,8 +223,8 @@ class Affine2(np.ndarray):
 class Vec3(np.ndarray):
     '''An (x,y,z) triplet'''
     def __new__(cls, x=0,y=0,z=0):
-        obj = np.array([x,y,z],dtype=np.float)
-        return super(Vec3,cls).__new__(cls, shape=(3,), buffer=obj,dtype=np.float)
+        obj = np.array([x,y,z],dtype=float)
+        return super(Vec3,cls).__new__(cls, shape=(3,), buffer=obj,dtype=float)
   
     def __repr__(self):
         return 'Vec3({0:.5f},{1:.5f},{2:.5f})'.format(self[0],self[1],self[2])
@@ -294,7 +294,7 @@ class Vec3(np.ndarray):
 class Vec3Array(np.ndarray):
     def __new__(cls, list=None, matrix=None):
         if list is not None:
-            obj = np.matrix(np.array(list)).astype(np.float)
+            obj = np.array(list).astype(float)
         else:
             obj = matrix
         self = super(Vec3Array,cls).__new__(cls, shape=obj.shape, buffer=matrix,dtype=obj.dtype)
@@ -411,6 +411,9 @@ class Affine3(np.ndarray):
     def rotate_triple_axis(self, x, y, z):
         return self * Affine3.new_rotate_triple_axis(x, y, z)
 
+    def inverse(self):
+        return np.linalg.inv(self)
+
     @classmethod
     def new_rotatex(cls, angle):
         self = cls()
@@ -443,7 +446,7 @@ class Affine3(np.ndarray):
 
     @classmethod
     def new_rotate_axis(cls, angle, axis):
-        assert(isinstance(axis, Vector3))
+        assert(isinstance(axis, Vec3))
         vector = axis.normalize()
         x = vector.x
         y = vector.y

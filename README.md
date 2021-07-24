@@ -27,7 +27,7 @@ Here are the types defined by npeuclid:
 ## 3D
 
 - `Vec3` - Holds a 3D vector (or point).
-- `Vec3Array` - Holds a list of points. All operations that can be done on a signal should be available on a Vec3Array as well. In particular, an `Affine3` operation may be applied on a `Vec3Array` which will transform all the points. 
+- `Vec3Array` - Holds a list of points. All operations that can be done on a single Vec3 should be available on a Vec3Array as well. In particular, an `Affine3` operation may be applied on a `Vec3Array` which will transform all the points. 
 - `Affine3` - An 3D affine transformation.
 
 # Usage

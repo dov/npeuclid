@@ -6,6 +6,7 @@
 import unittest
 import numpy as np
 from npeuclid import Vec2, Vec2Array, Affine2, Vec3, Vec3Array, Affine3
+import math
 import pdb
 
 class TestNPEuclid(unittest.TestCase):
@@ -126,6 +127,21 @@ class TestNPEuclid(unittest.TestCase):
         # Self cross section should be a null vector
         r = p.cross(p)
         self.assertAlmostEqual(r.sum(), 0)
+
+    # Vec2Arry
+    def test_vec2array(self):
+        p = Vec2Array([Vec2(1,0),
+                       Vec2(0,1)])
+        q = Vec2(0,1)
+        t = Affine2.new_rotate(math.pi/2)
+        pr = t*p
+        pq = t*q
+        self.assertAlmostEqual(pr[0].x, 0)
+        self.assertAlmostEqual(pr[0].y, 1)
+        self.assertAlmostEqual(pr[1].x, -1)
+        self.assertAlmostEqual(pr[1].y, 0)
+        self.assertAlmostEqual(pq.x, -1)
+        self.assertAlmostEqual(pq.y, 0)
 
 if __name__ == '__main__':
     unittest.main()
