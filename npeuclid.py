@@ -55,8 +55,11 @@ class Vec2(np.ndarray):
 
     def angle(self, other):
         """Return the angle to the vector other w.r.t. to the origin"""
-        return math.acos(self.dot(other) / (self.magnitude()*other.magnitude()))
-  
+        return math.atan2(self.x*other.y-self.y*other.x,self.x*other.x+self.y*other.y)
+
+    def rotate(self, angle):
+        return Affine2.new_rotate(angle) * self
+
     def project(self, other):
         """Return one vector projected on the vector other"""
         n = other.normalize()
@@ -546,3 +549,5 @@ class Affine3(np.ndarray):
     def __str__(self):
         return 'Affine3('+super(Affine3, self).__str__().replace('\n','\n        ')
 
+    def inverse(self):
+        return np.linalg.inv(self)
