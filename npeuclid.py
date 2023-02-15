@@ -223,6 +223,10 @@ class Affine2(np.ndarray):
     def __str__(self):
         return 'Affine2('+super(Affine2, self).__str__().replace('\n','\n        ')
 
+    def flatten(self):
+        return np.array(super(Affine2, self).flatten())
+
+
 class Vec3(np.ndarray):
     '''An (x,y,z) triplet'''
     def __new__(cls, x=0,y=0,z=0):
@@ -551,3 +555,11 @@ class Affine3(np.ndarray):
 
     def inverse(self):
         return np.linalg.inv(self)
+
+    def flatten(self):
+        return np.array(super(Affine3, self).flatten())
+
+if __name__ == '__main__':
+  t = Affine3.new_scale(3,3,3)
+  print(f'{t=}')
+  print(f'{t.flatten()}')
